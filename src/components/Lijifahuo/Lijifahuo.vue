@@ -35,16 +35,17 @@
         </div>
       </div>
       <template v-if="radioVal2 == '手动输入'">
+        <img src="../../assets/newImg/fh_03.jpg" class="pic-top" alt="">
         <div class="nav3">
           <div class="nav3-1">
             <div class="txt1">格式要求：</div>
-            <div class="txt1">查看视频教程订单</div>
+            <!-- <div class="txt1">查看视频教程订单</div> -->
             <div class="txt1 color">编号,姓名,电话,地址按顺序填写,中间用逗号分隔。一次可以输入多个收件人信息，一个收件人信息一行输入。</div>
             <div class="txt1">示例：</div>
             <div class="txt1 color">0000000,张三,13900000000,浙江省杭州市西湖区江南大道88号;</div>
             <div class="txt1">订单编号：淘、猫、京、拼等平台订单编号，如无订单编号可随机填写。</div>
             <div class="txt1">如遇东莞市、中山市、天门市、三沙市、儋州市、嘉峪关市等没有区的城市，区域可设置为“其他区”</div>
-            <div class="txt1 txt2">一键批量发货说明：</div>
+            <!-- <div class="txt1 txt2">一键批量发货说明：</div>
             <div class="txt1">1、使用方式：从网站千牛卖家发货中心或京东商家中心跳转至云仓包裹下单并自动上传快递单号。</div>
             <div class="txt1">
               2、该批量发货方式需要先1、使用方式：从网站千牛卖家发货中心或京东商家中心跳转至云仓包裹下单并自动上传快递单号。2、该批量发货方式需要先
@@ -52,7 +53,7 @@
                 class="colorspan"
               >下载安装插件</span>（打开浏览器的扩展程序，然后在那里加载已解压的插件）查看视频教程
             </div>
-            <div class="txt1">点击查看快递停发区域</div>
+            <div class="txt1">点击查看快递停发区域</div> -->
           </div>
           <!-- 生成表格 -->
           <div class="myTable1">
@@ -62,7 +63,11 @@
               <vxe-table-column field="name" title="姓名"></vxe-table-column>
               <vxe-table-column field="phone" title="电话"></vxe-table-column>
               <vxe-table-column field="myAddress" title="地址"></vxe-table-column>
-              <vxe-table-column field="msg" title="状态"></vxe-table-column>
+              <vxe-table-column field="msg" title="状态">
+                <template slot-scope="scope">
+                  <span :class="{'myRed':scope.row.status == 0}">{{scope.row.msg}}</span>
+                </template>
+              </vxe-table-column>
               <vxe-table-column title="操作" width="120">
                 <template slot-scope="scope">
                   <div class="flex">
@@ -79,10 +84,11 @@
           </div>
           <div class="nav3-2">
             <div class="txt1">收件人信息</div>
-            <el-input type="textarea" :rows="4" placeholder="订单编号，姓名，电话，地址;" v-model="textarea1"></el-input>
+            <el-input type="textarea" :rows="8" placeholder="订单编号，姓名，电话，地址;" v-model="textarea1"></el-input>
             <div @click="wanchengtianjia" class="btn">完成添加</div>
           </div>
         </div>
+        <img src="../../assets/newImg/fh_08.jpg" class="pic-bottom" alt="">
         <div class="nav4">
           <div class="txt1">最后一步：选择赠送礼品</div>
           <div class="txt4">
@@ -144,15 +150,16 @@
         </div>
       </template>
       <template v-if="radioVal2 == '模板导入'">
+        <img src="../../assets/newImg/fh_03.jpg" class="pic-top" alt="">
         <div class="nav3-mbdr">
           <div class="box1">
             <div class="left">
               <el-upload
                 class="upload-demo"
                 drag
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="/"
                 multiple
-                :on-success="upLoadSuccess"
+                :http-request="newupLoadSuccess"
               >
                 <!-- <i class="el-icon-upload"></i> -->
                 <img class="upLoadImg" src="../../assets/newImg/lujin498.png" alt />
@@ -205,6 +212,7 @@
             </vxe-table>
           </div>
         </div>
+        <img src="../../assets/newImg/fh_08.jpg" class="pic-bottom" alt="">
         <div class="nav4">
           <div class="txt1">最后一步：选择赠送礼品</div>
           <div class="txt4">
@@ -272,7 +280,7 @@
               <el-upload
                 class="upload-demo"
                 drag
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="http://ht.yuncanggift.com/home/order/getFilterData"
                 multiple
                 :on-success="upLoadSuccess"
               >
@@ -578,8 +586,8 @@
                     <el-radio-button
                       v-for="item in dataObj.kd_data"
                       :key="item.id"
-                      :label="item.name"
-                    ></el-radio-button>
+                      :label="item.id"
+                    >{{item.name}}</el-radio-button>
                   </el-radio-group>
                 </el-form-item>
                 <el-form-item label="排序：">
@@ -877,7 +885,7 @@ export default {
     Aside
   },
   computed: {
-    ...mapState(["tianjiabianjiPage", "shopObj"])
+    ...mapState(["tianjiabianjiPage", "shopObj",'lpscKdId','cangchu'])
   },
   watch: {
     radioVal1: function() {
@@ -910,6 +918,9 @@ export default {
         } else {
           this.peopleNum = this.storageText.split("\n").length;
         }
+        this.shopPrice =
+          this.tableData3[0].price * this.addShopNum + this.kdyunfei;
+        this.zongPrice = this.shopPrice * this.peopleNum;
       }
     },
     // storageText: function() {
@@ -928,7 +939,7 @@ export default {
       deep: true, //深度监听设置为 true
       handler: function() {
         if (this.tableData3[0]) {
-          if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
+          if (Number(this.tableData3[0].weight) * this.addShopNum <= 1) {
             this.kdyunfei = Number(this.dataObj.kd_price.kg);
           } else {
             var num = parseInt(
@@ -939,14 +950,15 @@ export default {
               num * this.dataObj.kd_price.kg_add;
           }
         }
-        // if (this.radioVal2 == "手动输入") {
-        //   if (this.radioVal2 == "手动输入") {
-        //     // this.peopleNum = this.textarea1.split("\n").length - 1;
-        //     this.peopleNum = this.storageText.split("\n").length;
-        //   }
-        // }
+        if (this.radioVal2 == "手动输入") {
+          if (this.radioVal2 == "手动输入") {
+            // this.peopleNum = this.textarea1.split("\n").length - 1;
+            this.peopleNum = this.storageText.split("\n").length;
+          }
+        }
         this.shopPrice =
           this.tableData3[0].price * this.addShopNum + this.kdyunfei;
+          console.log(this.tableData3[0].price, this.kdyunfei)
         this.zongPrice = this.shopPrice * this.peopleNum;
       }
     },
@@ -954,7 +966,7 @@ export default {
       deep: true, //深度监听设置为 true
       handler: function() {
         if (this.tableData3[0]) {
-          if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
+          if (Number(this.tableData3[0].weight) * this.addShopNum <= 1) {
             this.kdyunfei = Number(this.dataObj.kd_price.kg);
           } else {
             var num = parseInt(
@@ -965,19 +977,21 @@ export default {
               num * this.dataObj.kd_price.kg_add;
           }
         }
-        // if (this.radioVal2 == "手动输入") {
-        //   this.peopleNum = this.storageText.split("\n").length;
-        // }
+        if (this.radioVal2 == "手动输入") {
+          this.peopleNum = this.storageText.split("\n").length;
+        }
         this.shopPrice =
           this.tableData3[0].price * this.addShopNum + this.kdyunfei;
         this.zongPrice = this.shopPrice * this.peopleNum;
       }
     },
     dataObj: {
+       immediate: true,
       deep: true, //深度监听设置为 true
       handler: function() {
         if (this.tableData3[0]) {
-          if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
+          if (Number(this.tableData3[0].weight) * this.addShopNum <= 1) {
+            console.log(this.dataObj)
             this.kdyunfei = Number(this.dataObj.kd_price.kg);
           } else {
             var num = parseInt(
@@ -989,11 +1003,12 @@ export default {
             console.log(this.kdyunfei);
           }
         }
-        // if (this.radioVal2 == "手动输入") {
-        //   this.peopleNum = this.storageText.split("\n").length;
-        // }
+        if (this.radioVal2 == "手动输入") {
+          this.peopleNum = this.storageText.split("\n").length;
+        }
         this.shopPrice =
           this.tableData3[0].price * this.addShopNum + this.kdyunfei;
+          console.log(this.tableData3[0].price,  this.kdyunfei);
         this.zongPrice = this.shopPrice * this.peopleNum;
         console.log(this.peopleNum, this.zongPrice);
       }
@@ -1028,7 +1043,7 @@ export default {
       searchVal: "",
       form: {
         fenlei: "礼品商城",
-        cangchu: "",
+        cangchu: 1026,
         miandan: "海带宝",
         paixu: "",
         jiage: 0,
@@ -1386,9 +1401,15 @@ export default {
   },
   created() {
     this.getData();
+    console.log(this.shopObj)
     if (this.shopObj) {
       this.$set(this.tableData3, 0, this.shopObj);
       this.addShopNum = this.shopObj.num;
+      setTimeout(()=>{
+        this.changeVal1(this.cangchu)
+      },500)
+      // this.$set(this.form,'cangchu',this.cangchu)
+      console.log(this.form.cangchu)
     }
   },
   methods: {
@@ -1414,7 +1435,7 @@ export default {
         this.tableData2 = res.data.goods_data;
         this.total = res.data.total;
         this.dataObj = res.data;
-        this.ycId = res.data.yun_cang[0].id;
+        this.ycId = this.form.cangchu == '' ? res.data.yun_cang[0].id : this.form.cangchu;
         this.form.cangchu = this.ycId;
         this.ycVal = res.data.yun_cang[0].logi_name;
         this.flId = res.data.goods_classify[0].id;
@@ -1453,7 +1474,7 @@ export default {
     },
     async wanchengtianjia(val = "") {
       if (this.tableData3[0]) {
-        if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
+        if (Number(this.tableData3[0].weight) * this.addShopNum <= 1) {
           this.kdyunfei = Number(this.dataObj.kd_price.kg);
         } else {
           var num = parseInt(
@@ -1599,11 +1620,12 @@ export default {
       this.getData();
     },
     async changeVal1(val) {
-      console.log(val);
+      console.log(val,this.dataObj);
       var obj = {};
       obj = this.dataObj.yun_cang.find(function(item) {
         return item.id === val;
       });
+      this.form.cangchu = val;
       this.ycVal = obj.logi_name;
       // console.log(obj.id); //label值
       const res = await this.$api.switchYc({
@@ -1611,9 +1633,10 @@ export default {
         id: obj.id
       });
       this.ycId = obj.id;
+      console.log(this.ycId)
       console.log(res.data);
       this.$set(this.dataObj, "kd_data", res.data.kd_data);
-      this.form.miandan = res.data.kd_data[0].name;
+      this.form.miandan = res.data.kd_data[0].id;
       this.$set(this.dataObj, "kd_price", res.data.kd_price);
       this.getData();
     },
@@ -1633,7 +1656,7 @@ export default {
       console.log(res.data);
       this.kdId = obj.id;
       // this.$set(this.dataObj,'kd_data',res.data.kd_data)
-      // this.form.miandan = res.data.kd_data[0].name;
+      // this.form.miandan = res.data.kd_data[0].id;
       this.$set(this.dataObj.kd_price, "kg", res.data.kg);
       this.$set(this.dataObj.kd_price, "kg_add", res.data.kg_add);
     },
@@ -1707,7 +1730,7 @@ export default {
       }).then(async () => {
         const loading = this.$loading({
           lock: true,
-          text: "请稍后",
+          text: "订单正在向快递公司下单",
           spinner: "el-icon-loading",
           background: "rgba(0, 0, 0, 0.7)"
         });
@@ -1729,13 +1752,14 @@ export default {
         } else if (this.radioVal2 == "智能筛选") {
           this.import_type = 3;
         }
+        
         const res = await this.$api.orderInsertData({
           token: sessionStorage.getItem("token"),
           import_mode: this.import_mode,
           type: this.import_type,
           data: this.storageText,
           goods_id: this.tableData3[0] ? this.tableData3[0].id : "",
-          kd_id: this.kdId,
+          kd_id: this.lpscKdId ? this.lpscKdId : this.kdId,
           goods_member: this.tableData3[0] ? this.tableData3[0].num : 0,
           remarks: this.sdsrcwbzVal1,
           yc: this.form.cangchu
@@ -1748,7 +1772,7 @@ export default {
             type: "success"
           });
           this.textarea1 = "";
-          this.$router.push({ name: "Baoguoliebiao" });
+          this.$router.push({ name: "Dingdanliebiao" });
         } else {
           this.$message({
             message: res.msg,
@@ -1773,9 +1797,9 @@ export default {
           ] = `${ele.order},${ele.name},${ele.phone},${ele.myAddress};`;
         }
       });
-      this.createTableArr.forEach(ele => {
-        this.textarea1 += ele;
-      });
+      // this.createTableArr.forEach(ele => {
+      //   this.textarea1 += ele;
+      // });
       this.wanchengtianjia();
     },
     async querenShangchuan2() {
@@ -1784,6 +1808,12 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消"
       }).then(async () => {
+        const loading = this.$loading({
+          lock: true,
+          text: "订单正在向快递公司下单",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         if (this.radioVal1 == "淘宝/天猫") {
           this.import_mode = 1;
         } else if (this.radioVal1 == "京东") {
@@ -1831,6 +1861,7 @@ export default {
           yc: this.form.cangchu
         });
         console.log(res);
+        loading.close();
         if (res.code == 200) {
           this.$message({
             message: res.msg,
@@ -1909,6 +1940,85 @@ export default {
       }
     },
     // 上传文件
+    newupLoadSuccess(params) {
+      console.log(params.file);
+      this.myformData2 = new FormData();
+      this.myformData2.append("formData", params.file);
+      this.myformData2.append("token", sessionStorage.getItem("token"));
+      this.myformData2.append("yc", this.form.cangchu);
+      var configs = {
+        headers: {
+          "Content-Type": "multipart/form-data;charse=UTF-8"
+        }
+      };
+      axios
+        .post(
+          "http://ht.yuncanggift.com/home/order/getFilterData",
+          this.myformData2,
+          configs
+        )
+        .then(res => {
+          console.log(res.data, 22222222);
+          if (res.data.code == 200) {
+            this.createTableData2 = res.data.data.data;
+          } else {
+            this.$message({
+              message: res.data.msg,
+              type: "warning"
+            });
+          }
+        });
+      if (this.radioVal2 == "智能筛选") {
+        this.myformData2 = new FormData();
+        this.myformData2.append("formData", params.file);
+        this.myformData2.append("token", sessionStorage.getItem("token"));
+        this.myformData2.append("yc", this.form.cangchu);
+        axios
+          .post(
+            "http://ht.yuncanggift.com/home/order/getFilterData",
+            this.myformData2,
+            configs
+          )
+          .then(res => {
+            console.log(res.data, 22222222);
+            if (res.data.code == 200) {
+              this.orderArr = res.data.data.order;
+              this.strDataArr = res.data.data.strData;
+              this.peopleNum = res.data.data.order.length;
+              this.znsxTextarea1Arr = [];
+              this.orderArr.forEach(ele => {
+                this.znsxTextarea1Arr.push(ele);
+              });
+              this.strDataArr.forEach((ele, i) => {
+                this.znsxTextarea1Arr[
+                  i
+                ] += `,${ele["1"]},${ele["2"]},${ele["3"]};\n`;
+              });
+              console.log(this.znsxTextarea1Arr);
+              this.znsxTextarea1Arr.forEach(ele => {
+                this.znsxTextarea1Data += ele;
+              });
+              if (this.radioVal3 == "订单号筛选") {
+                this.znsxTextarea1 = "";
+                this.orderArr.forEach(ele => {
+                  this.znsxTextarea1 += `${ele};\n`;
+                });
+              } else if (this.radioVal3 == "收件人筛选") {
+                this.znsxTextarea1 = "";
+                this.strDataArr.forEach(ele => {
+                  this.znsxTextarea1 += `${ele["1"]},${ele["2"]},${ele["3"]};\n`;
+                  console.log(this.znsxTextarea1);
+                });
+              }
+            } else {
+              this.$message({
+                message: res.data.msg,
+                type: "warning"
+              });
+            }
+          });
+      }
+    },
     upLoadSuccess(response, file) {
       console.log(file.raw);
       this.myformData2 = new FormData();
@@ -2100,20 +2210,28 @@ export default {
   .nav2.nav1 {
     // margin-top: 20px;
   }
+  .pic-top{
+    transform: translateY(2px);
+    width: 100%;
+  }
+  .pic-bottom{
+    transform: translateY(-2px);
+    width: 100%;
+  }
   .nav3 {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     // margin-top: 20px;
     // height: 640px;
     // background: #ffffff;
-    background-image: url("../../assets/newImg/kk14.png");
+    background-image: url("../../assets/newImg/fh_06.jpg");
     background-size: 100% 100%;
     border-radius: 10px;
-    padding-top: 20px;
+    padding-top: 10px;
     .nav3-1 {
       margin: 20px auto;
       padding: 20px;
       width: 90%;
-      height: 320px;
+      height: 140px;
       background: #f9f9f9;
       border-radius: 4px;
       .txt1 {
@@ -2268,10 +2386,18 @@ export default {
     }
   }
   //模板导入
+  .pic-top{
+    transform: translateY(2px);
+    width: 100%;
+  }
+  .pic-bottom{
+    transform: translateY(-2px);
+    width: 100%;
+  }
   .nav3-mbdr {
     // margin-top: 20px;
     // background: #ffffff;
-    background-image: url("../../assets/newImg/kk15.png");
+    background-image: url("../../assets/newImg/fh_06.jpg");
     background-size: 100% 100%;
     padding: 40px;
     .box1 {

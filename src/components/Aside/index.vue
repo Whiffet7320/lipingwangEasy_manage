@@ -1,13 +1,13 @@
 <template>
   <div class="index">
     <div class="nav1" @click="toLijifahuo">
-      <img class="pic" src="../../assets/newImg/ljfh.png" alt="" />
+      <!-- <img class="pic" src="../../assets/newImg/ljfh.png" alt="" /> -->
       <div class="tit">立即发货</div>
     </div>
     <div class="nav2">
-      <img class="pic" src="../../assets/newImg/asideBG.png" alt="" />
+      <!-- <img class="pic" src="../../assets/newImg/asideBG.png" alt="" /> -->
       <div class="box1">
-        <img class="pic1" src="../../assets/newImg/zu280-1.png" alt="" />
+        <!-- <img class="pic1" src="../../assets/newImg/zu280-1.png" alt="" /> -->
         <div class="txt1">订单管理</div>
         <div class="txt2">ORDER</div>
         <div
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="box1 box2">
-        <img class="pic1" src="../../assets/newImg/zu280-2.png" alt="" />
+        <!-- <img class="pic1" src="../../assets/newImg/zu280-2.png" alt="" /> -->
         <div class="txt1">财务中心</div>
         <div class="txt2">FINANCE</div>
         <div
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="box1 box3">
-        <img class="pic1" src="../../assets/newImg/zu280-1.png" alt="" />
+        <!-- <img class="pic1" src="../../assets/newImg/zu280-1.png" alt="" /> -->
         <div class="txt1">售后服务</div>
         <div class="txt2">AFTER SALES</div>
         <div
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="box1 box4">
-        <img class="pic1" src="../../assets/newImg/zu280-3.png" alt="" />
+        <!-- <img class="pic1" src="../../assets/newImg/zu280-3.png" alt="" /> -->
         <div class="txt1">账户管理</div>
         <div class="txt2">ACCOUNT</div>
         <div
@@ -94,7 +94,7 @@
         </div>
       </div>
       <div class="box1 box5">
-        <img class="pic1" src="../../assets/newImg/zu280-1.png" alt="" />
+        <!-- <img class="pic1" src="../../assets/newImg/zu280-1.png" alt="" /> -->
         <div class="txt1">帮助中心</div>
         <div class="txt2">HELP CENTER</div>
         <div
@@ -172,22 +172,27 @@ export default {
 
 <style lang="scss" scoped>
 .index {
+  margin-right: 10px;
   .nav1 {
     position: relative;
-    width: 224px;
+    width: 192px;
     height: 58px;
+    background: #ffffff;
+    z-index: 1;
+    box-shadow: 0px 0px 10px 2px #ff6a00 !important;;
     cursor: pointer;
     .pic {
       position: absolute;
-      width: 224px;
+      width: 192px;
       height: 58px;
       opacity: 1;
     }
     .tit {
       position: absolute;
       top: 50%;
-      right: 28px;
-      transform: translate(4px,-50%);
+      left: 50%;
+      // right: 28px;
+      transform: translate(-50%,-50%);
       letter-spacing: 2px;
       font-size: 22px;
       font-family: PingFang SC, PingFang SC-Bold;
@@ -197,15 +202,17 @@ export default {
   }
   .nav2 {
     position: relative;
-    transform: translate(-12px, -12px);
-    width: 248px;
-    height: 1132px;
+    // transform: translate(-12px, -12px);
+    // width: 248px;
+    box-shadow: 0px 2px 4px 2px #dddddd !important;
+    background: #ffffff;
+    height: 928px;
     opacity: 1;
 
     .pic {
       position: absolute;
       width: 248px;
-      height: 1132px;
+      height: 928px;
       opacity: 1;
     }
     .box1 {
@@ -217,7 +224,7 @@ export default {
       }
       position: relative;
       left: 50%;
-      top: 52px;
+      top: 10px;
       transform: translateX(-50%);
       width: 105px;
       height: 154px;
@@ -231,7 +238,7 @@ export default {
         top: 0;
       }
       .txt1 {
-        cursor: pointer;
+        // cursor: pointer;
         position: absolute;
         left: 0;
         top: 22px;
@@ -241,9 +248,11 @@ export default {
         font-weight: 500;
         text-align: center;
         color: #5c5c5c;
+        text-shadow: 2px 2px 2px #aaaaaa;
       }
       .txt2 {
-        cursor: pointer;
+        text-shadow: 2px 2px 2px #aaaaaa;
+        // cursor: pointer;
         position: absolute;
         left: 0;
         top: 40px;
@@ -298,7 +307,7 @@ export default {
       .txt:hover {
         color: #ea8e11;
       }
-      margin-top: 40px;
+      // margin-top: 40px;
       .pic1 {
         width: 105px;
         height: 176px;
@@ -345,19 +354,19 @@ export default {
       .txt.active {
         color: #ea8e11;
       }
-      margin-top: 60px;
+      margin-top: 40px;
     }
     .box4.box1 {
       .txt.active {
         color: #ea8e11;
       }
-      margin-top: 40px;
+      // margin-top: 40px;
       .txt:hover {
         color: #ea8e11;
       }
       position: relative;
       left: 50%;
-      top: 52px;
+      top: 12px;
       transform: translateX(-50%);
       width: 105px;
       height: 212px;
@@ -420,7 +429,7 @@ export default {
       .txt.active {
         color: #ea8e11;
       }
-      margin-top: 40px;
+      margin-top: 20px;
     }
   }
 }

@@ -1,8 +1,26 @@
 <template>
   <div class="index">
+    <!-- <div class="fiexd-box">
+      <div class="f-b1 b1">
+        <img class="pic" src="../../assets/newImg/lujin526.png" alt />
+        <div class="txt">微信咨询</div>
+        <div class="b1-hov">
+          <img :src="kefuImg" alt />
+        </div>
+      </div>
+      <div class="f-b1 b2">
+        <img class="pic" src="../../assets/newImg/lujin527.png" alt />
+        <div class="txt">QQ咨询</div>
+        <div class="b2-hov">{{qq}}</div>
+      </div>
+      <div class="f-b1 b3" @click="toTop">
+        <img class="pic b3" src="../../assets/newImg/zu297.png" alt />
+        <div class="txt">返回顶部</div>
+      </div>
+    </div>-->
     <!-- <div class="nav2">
       <div class="tit1">当前位置：首页-礼品商城</div>
-    </div> -->
+    </div>-->
     <div class="nav3">
       <div class="tit1">当前位置：首页-礼品商城</div>
       <el-form class="form" ref="form" :model="form" label-width="120px">
@@ -16,52 +34,41 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="仓储：">
-          <el-radio-group
-            @change="changeVal1"
-            v-model="form.cangchu"
-            size="small"
-          >
+          <el-radio-group @change="changeVal1" v-model="form.cangchu" size="small">
             <el-radio-button
+            style="margin:10px 0"
               v-for="item in dataObj.yun_cang"
               :key="item.id"
-              :label="item.logi_name"
-              :value="item.id"
-            ></el-radio-button>
+              :label="item.id"
+            >{{item.logi_name}}</el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="面单：">
           <el-radio-group v-model="form.miandan" size="small">
             <el-radio-button
+            style="margin:10px 0"
               v-for="item in dataObj.kd_data"
               :key="item.id"
-              :label="item.name"
-            ></el-radio-button>
+              :label="item.id"
+            >{{item.name}}</el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="排序：">
           <div class="btnItem">
             <div class="bt1" @click="jiagezuidi">
-              <div :class="{ txt: true, active: form.jiage == 1 }">
-                价格最低
-              </div>
+              <div :class="{ txt: true, active: form.jiage == 1 }">价格最低</div>
             </div>
             <div class="bt1" @click="fabu">
               <div :class="{ txt: true, active: form.fabu == 1 }">最新发布</div>
             </div>
             <div class="bt1" @click="paixu">
-              <div :class="{ txt: true, active: form.morenpaixu == 1 }">
-                默认排序
-              </div>
+              <div :class="{ txt: true, active: form.morenpaixu == 1 }">默认排序</div>
             </div>
             <div class="bt1" @click="xiaoliang">
-              <div :class="{ txt: true, active: form.xiaoliang == 1 }">
-                销量最高
-              </div>
+              <div :class="{ txt: true, active: form.xiaoliang == 1 }">销量最高</div>
             </div>
             <div class="bt1" @click="zhongliang">
-              <div :class="{ txt: true, active: form.zhongliang == 1 }">
-                重量最重
-              </div>
+              <div :class="{ txt: true, active: form.zhongliang == 1 }">重量最重</div>
             </div>
           </div>
         </el-form-item>
@@ -69,7 +76,7 @@
     </div>
     <div class="items">
       <div class="item" v-for="item in tableData1" :key="item.id">
-        <img class="pic1" :src="item.image_id" alt="" />
+        <img class="pic1" :src="item.image_id" alt />
         <div class="tit1">{{ item.name }}</div>
         <div class="tit2">
           <div class="tit2-1">¥{{ item.price }}</div>
@@ -91,8 +98,7 @@
         layout="prev, pager, next, jumper"
         :total="total"
         background
-      >
-      </el-pagination>
+      ></el-pagination>
     </div>
     <!-- 立即购买 -->
     <el-dialog
@@ -105,18 +111,13 @@
         <div class="left">
           <div class="nav1">
             <div class="search">
-              <el-input
-                placeholder="请输入内容"
-                v-model="searchVal"
-                class="input-with-select"
-              >
+              <el-input placeholder="请输入内容" v-model="searchVal" class="input-with-select">
                 <el-button
                   @click="mySearchData"
                   slot="append"
                   class="searchBtn"
                   icon="el-icon-search"
-                  >搜索</el-button
-                >
+                >搜索</el-button>
               </el-input>
             </div>
             <div class="search2">商城产品</div>
@@ -133,57 +134,41 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="仓储：">
-                <el-radio-group
-                  @change="changeVal1"
-                  v-model="form.cangchu"
-                  size="small"
-                >
+                <el-radio-group @change="changeVal1" v-model="form.cangchu" size="small">
                   <el-radio-button
+                  style="padding:4px 0"
                     v-for="item in dataObj.yun_cang"
                     :key="item.id"
-                    :label="item.logi_name"
-                  ></el-radio-button>
+                    :label="item.id"
+                  >{{item.logi_name}}</el-radio-button>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="面单：">
-                <el-radio-group
-                  @change="changeVal2"
-                  v-model="form.miandan"
-                  size="small"
-                >
+                <el-radio-group @change="changeVal2" v-model="form.miandan" size="small">
                   <el-radio-button
+                  style="padding:4px 0"
                     v-for="item in dataObj.kd_data"
                     :key="item.id"
-                    :label="item.name"
-                  ></el-radio-button>
+                    :label="item.id"
+                  >{{item.name}}</el-radio-button>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="排序：">
                 <div class="btnItem">
                   <div class="bt1" @click="jiagezuidi">
-                    <div :class="{ txt: true, active: form.jiage == 1 }">
-                      价格最低
-                    </div>
+                    <div :class="{ txt: true, active: form.jiage == 1 }">价格最低</div>
                   </div>
                   <div class="bt1" @click="fabu">
-                    <div :class="{ txt: true, active: form.fabu == 1 }">
-                      最新发布
-                    </div>
+                    <div :class="{ txt: true, active: form.fabu == 1 }">最新发布</div>
                   </div>
                   <div class="bt1" @click="paixu">
-                    <div :class="{ txt: true, active: form.morenpaixu == 1 }">
-                      默认排序
-                    </div>
+                    <div :class="{ txt: true, active: form.morenpaixu == 1 }">默认排序</div>
                   </div>
                   <div class="bt1" @click="xiaoliang">
-                    <div :class="{ txt: true, active: form.xiaoliang == 1 }">
-                      销量最高
-                    </div>
+                    <div :class="{ txt: true, active: form.xiaoliang == 1 }">销量最高</div>
                   </div>
                   <div class="bt1" @click="zhongliang">
-                    <div :class="{ txt: true, active: form.zhongliang == 1 }">
-                      重量最重
-                    </div>
+                    <div :class="{ txt: true, active: form.zhongliang == 1 }">重量最重</div>
                   </div>
                 </div>
               </el-form-item>
@@ -207,10 +192,10 @@
                 <div @click="addShop(item)" class="txt">立即购买</div>
               </div>
             </div>
-          </div> -->
+          </div>-->
           <div class="items">
             <div class="item" v-for="item in tableData1" :key="item.id">
-              <img class="pic1" :src="item.image_id" alt="" />
+              <img class="pic1" :src="item.image_id" alt />
               <div class="tit1">{{ item.name }}</div>
               <div class="tit2">
                 <div class="tit2-1">¥{{ item.price }}</div>
@@ -233,23 +218,16 @@
               layout="prev, pager, next, jumper"
               :total="total"
               background
-            >
-            </el-pagination>
+            ></el-pagination>
           </div>
         </div>
         <div class="right">
-          <vxe-table
-            :merge-cells="colspanMethod"
-            align="left"
-            :data="tableData3"
-          >
+          <vxe-table :merge-cells="colspanMethod" align="left" :data="tableData3">
             <vxe-table-column :field="null" width="120" title="商品">
               <template #default="{ row }">
                 <div class="formNav1">
-                  <div class="nav1-1" :title="row.name">
-                    {{ row.name }}
-                  </div>
-                  <img class="nav1-2" :src="row.image_id" alt="" />
+                  <div class="nav1-1" :title="row.name">{{ row.name }}</div>
+                  <img class="nav1-2" :src="row.image_id" alt />
                 </div>
               </template>
             </vxe-table-column>
@@ -257,19 +235,9 @@
               <template #default="{ row }">
                 <div class="formNav2">
                   <div class="nav2-1">
-                    <img
-                      @click="jianS"
-                      class="icon"
-                      src="../../assets/newImg/zu279.png"
-                      alt=""
-                    />
+                    <img @click="jianS" class="icon" src="../../assets/newImg/zu279.png" alt />
                     <div class="tit">{{ addShopNum }}</div>
-                    <img
-                      @click="jiaS"
-                      class="icon"
-                      src="../../assets/newImg/zu278.png"
-                      alt=""
-                    />
+                    <img @click="jiaS" class="icon" src="../../assets/newImg/zu278.png" alt />
                   </div>
                   <div class="nav2-2">{{ row.weight }}kg/{{ row.unit }}</div>
                   <div class="nav2-3">{{ row.stock }}库存</div>
@@ -285,11 +253,7 @@
               <template>
                 <div class="pos">
                   <div class="formNav4" @click="delShop">
-                    <img
-                      class="icon"
-                      src="../../assets/newImg/lujin244.png"
-                      alt=""
-                    />
+                    <img class="icon" src="../../assets/newImg/lujin244.png" alt />
                     <div class="nav4-1">删除</div>
                   </div>
                 </div>
@@ -309,9 +273,7 @@
               <div class="nav1">
                 <div class="txt1">商品价格</div>
                 <div v-if="!tableData3[0]" class="txt2">¥0.00</div>
-                <div v-else class="txt2">
-                  ¥{{ Number(tableData3[0].price * addShopNum).toFixed(2) }}
-                </div>
+                <div v-else class="txt2">¥{{ Number(tableData3[0].price * addShopNum).toFixed(2) }}</div>
               </div>
               <div v-if="tableData3[0]">
                 <div class="nav1">
@@ -320,9 +282,9 @@
                 </div>
                 <div class="nav1">
                   <div class="txt1">共计：</div>
-                  <div class="txt3">
-                    ¥{{ Number(tableData3[0].price * addShopNum + kdyunfei).toFixed(2) }}
-                  </div>
+                  <div
+                    class="txt3"
+                  >¥{{ Number(tableData3[0].price * addShopNum + kdyunfei).toFixed(2) }}</div>
                 </div>
               </div>
             </div>
@@ -341,20 +303,20 @@
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["lipingshangchengPage", "ljgmlipingshangchengPage"]),
+    ...mapState(["lipingshangchengPage", "ljgmlipingshangchengPage"])
   },
   watch: {
-    lipingshangchengPage: function (page) {
+    lipingshangchengPage: function(page) {
       this.$store.commit("lipingshangchengPage", page);
       this.getData();
     },
-    ljgmlipingshangchengPage: function (page) {
+    ljgmlipingshangchengPage: function(page) {
       this.$store.commit("ljgmlipingshangchengPage", page);
       this.getData();
     },
     addShopNum: {
       deep: true, //深度监听设置为 true
-      handler: function () {
+      handler: function() {
         if (this.tableData3[0]) {
           if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
             this.kdyunfei = Number(this.dataObj.kd_price.kg);
@@ -367,11 +329,11 @@ export default {
               num * this.dataObj.kd_price.kg_add;
           }
         }
-      },
+      }
     },
     tableData3: {
       deep: true, //深度监听设置为 true
-      handler: function () {
+      handler: function() {
         if (this.tableData3[0]) {
           if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
             this.kdyunfei = Number(this.dataObj.kd_price.kg);
@@ -384,11 +346,11 @@ export default {
               num * this.dataObj.kd_price.kg_add;
           }
         }
-      },
+      }
     },
     dataObj: {
       deep: true, //深度监听设置为 true
-      handler: function () {
+      handler: function() {
         if (this.tableData3[0]) {
           if (Number(this.tableData3[0].weight) * this.addShopNum < 1) {
             this.kdyunfei = Number(this.dataObj.kd_price.kg);
@@ -401,8 +363,8 @@ export default {
               num * this.dataObj.kd_price.kg_add;
           }
         }
-      },
-    },
+      }
+    }
   },
   data() {
     return {
@@ -421,7 +383,7 @@ export default {
         fabu: 0,
         morenpaixu: 0,
         xiaoliang: 0,
-        zhongliang: 0,
+        zhongliang: 0
       },
       form2: {
         fenlei: "礼品商城",
@@ -432,7 +394,7 @@ export default {
         fabu: 0,
         morenpaixu: 0,
         xiaoliang: 0,
-        zhongliang: 0,
+        zhongliang: 0
       },
       dialogVisible: false,
       tableData1: [],
@@ -442,12 +404,50 @@ export default {
       addShopNum: 1,
       kdyunfei: 0,
       total: 0,
+      kefuImg: "",
+      qq: ""
     };
   },
-  created() {
+  async created() {
     this.getData();
+    const res = await this.$api.getKefu({
+      token: sessionStorage.getItem("token")
+    });
+    console.log(res);
+    this.kefuImg = res.data.wx;
+    this.qq = res.data.qq;
+  },
+  mounted() {
+    window.addEventListener("scroll", this.scrollToTop);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.scrollToTop);
   },
   methods: {
+    toTop() {
+      let that = this;
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-that.scrollTop / 5);
+        document.documentElement.scrollTop = document.body.scrollTop =
+          that.scrollTop + ispeed;
+        if (that.scrollTop === 0) {
+          clearInterval(timer);
+        }
+      }, 16);
+    },
+    scrollToTop() {
+      let that = this;
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      that.scrollTop = scrollTop;
+      if (that.scrollTop > 200) {
+        that.btnFlag = true;
+      } else {
+        that.btnFlag = false;
+      }
+    },
     async getData() {
       const res = await this.$api.getGoods({
         token: sessionStorage.getItem("token"),
@@ -458,7 +458,7 @@ export default {
         classify: this.flId,
         paixu: 1,
         paixu_value: this.paixu_value,
-        paixu_order: this.paixu_order,
+        paixu_order: this.paixu_order
       });
       console.log(res);
       if (res.code == 0) {
@@ -480,24 +480,26 @@ export default {
     },
     async changeVal1(val) {
       var obj = {};
-      obj = this.dataObj.yun_cang.find(function (item) {
-        return item.logi_name === val;
+      obj = this.dataObj.yun_cang.find(function(item) {
+        return item.id === val;
       });
       // console.log(obj.id); //label值
       const res = await this.$api.switchYc({
         token: sessionStorage.getItem("token"),
-        id: obj.id,
+        id: obj.id
       });
       this.ycId = obj.id;
+      // this.mykdId = res.data.kd_data[]
       console.log(res.data);
       this.$set(this.dataObj, "kd_data", res.data.kd_data);
-      this.form.miandan = res.data.kd_data[0].name;
+      this.form.miandan = res.data.kd_data[0].id;
       this.$set(this.dataObj, "kd_price", res.data.kd_price);
       this.getData();
+      console.log(this.form.cangchu);
     },
     async changeVal2(val) {
       var obj = {};
-      obj = this.dataObj.kd_data.find(function (item) {
+      obj = this.dataObj.kd_data.find(function(item) {
         return item.name === val;
       });
       // console.log(obj.id); //label值
@@ -505,11 +507,11 @@ export default {
         token: sessionStorage.getItem("token"),
         kd_id: obj.id,
         type: 2,
-        yc_id: this.ycId,
+        yc_id: this.ycId
       });
       console.log(res.data);
       // this.$set(this.dataObj,'kd_data',res.data.kd_data)
-      // this.form.miandan = res.data.kd_data[0].name;
+      // this.form.miandan = res.data.kd_data[0].id;
       this.$set(this.dataObj.kd_price, "kg", res.data.kg);
       this.$set(this.dataObj.kd_price, "kg_add", res.data.kg_add);
     },
@@ -528,8 +530,11 @@ export default {
       console.log(this.tableData3);
     },
     toLJFH() {
+      console.log(this.form.miandan);
       this.$set(this.tableData3[0], "num", this.addShopNum);
       this.$store.commit("shopObj", this.tableData3[0]);
+      this.$store.commit("lpscKdId", this.form.miandan);
+      this.$store.commit("cangchu", this.form.cangchu);
       this.$router.push({ name: "Lijifahuo" });
     },
     delShop() {
@@ -635,13 +640,95 @@ export default {
     ljgmhandleCurrentChange(val) {
       console.log(`当前页: ${val}`);
       this.$store.commit("ljgmlipingshangchengPage", val);
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .index {
+  position: relative;
+  .fiexd-box {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    height: 388px;
+    background: #fe8800;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px 0px rgba(167, 167, 167, 0.2);
+    right: 100px;
+    .f-b1 {
+      height: 130px;
+      width: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .pic {
+        width: 50px;
+        height: 40px;
+      }
+      .pic.b3 {
+        width: 41px;
+        height: 21px;
+      }
+      .txt {
+        margin-top: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: center;
+        color: #ffffff;
+      }
+    }
+    .f-b1.b2 {
+      .b2-hov {
+        display: none;
+      }
+      position: relative;
+      background: #ff6a00;
+      .pic {
+        width: 39px;
+        height: 43px;
+      }
+    }
+    .f-b1.b2:hover .b2-hov {
+      display: flex;
+      transform: translate(-120px, -16px);
+      width: 120px;
+      height: 60px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: #fff;
+      background-size: 100% auto;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      z-index: 99999;
+    }
+    .f-b1.b1 {
+      position: relative;
+      .b1-hov {
+        display: none;
+        // transform: translateX(-120px);
+        img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    }
+    .f-b1.b1:hover .b1-hov {
+      display: block;
+      transform: translate(-120px, -44px);
+      position: absolute;
+      top: 50px;
+      left: 0;
+      z-index: 99999;
+    }
+    .hov.qq {
+    }
+  }
   .nav1 {
     display: flex;
     align-items: center;

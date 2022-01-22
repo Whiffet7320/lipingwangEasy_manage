@@ -331,14 +331,16 @@ export default {
   display: flex;
 }
 .right {
-  width: 100%;
+  width: 84%;
   .myRadio {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     // align-items: center;
     margin-left: 38px;
     transform: translateY(-14px);
     .el-radio-group{
+      display: inline-block;
       flex-direction: row;
     }
   }
@@ -628,7 +630,7 @@ export default {
 }
 /deep/ .el-radio-button {
   margin-right: 10px !important;
-  width: 160px;
+  // width: 160px;
   margin-top: 10px;
 }
 /deep/ .el-radio-button.is-active {

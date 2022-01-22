@@ -1,53 +1,53 @@
 <template>
   <div class="index">
     <div class="top">
-      <img class="pic1" src="../../assets/newImg/dhl.png" alt />
+      <!-- <img class="pic1" src="../../assets/newImg/dhl.png" alt /> -->
       <div class="nav">
         <div class="item1">
-          <img class="pic2" src="../../assets/newImg/mhhz.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/mhhz.png" alt /> -->
         </div>
         <div @click="shouye" class="item active">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">首页</div>
           <div class="txt2">INDEX</div>
         </div>
         <div @click="lpsc" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">礼品商城</div>
           <div class="txt2">GIFT MALL</div>
         </div>
         <div @click="hyzx" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">会员中心</div>
           <div class="txt2">MEMBER</div>
         </div>
         <div @click="sfbz" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">收费标准</div>
           <div class="txt2">CHARGES</div>
         </div>
         <div @click="dfzn" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">代发指南</div>
           <div class="txt2">AGENCY</div>
         </div>
         <div @click="tgfy" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">推广返佣</div>
           <div class="txt2">REBATE</div>
         </div>
         <div @click="fzyApi" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">分站与API</div>
           <div class="txt2">SUBATATION</div>
         </div>
         <div @click="zxkf" class="item">
-          <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
           <div class="txt1">在线客服</div>
           <div class="txt2">SERVICE</div>
         </div>
         <div class="item">
-          <img class="pic2" src="../../assets/newImg/mhhz.png" alt />
+          <!-- <img class="pic2" src="../../assets/newImg/mhhz.png" alt /> -->
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
             <img class="pic" src="../../assets/newImg/sy1.png" alt />
             <div class="box">
               <div class="items">
-                <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+                <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
                 <div class="txt1">关于我们</div>
                 <div class="txt2">ABOUT US</div>
               </div>
@@ -73,7 +73,7 @@
             <img class="pic" src="../../assets/newImg/sy2.png" alt />
             <div class="sy2">
               <div class="items">
-                <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+                <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
                 <div class="txt1">专属定制</div>
                 <div class="txt2">CUSTOM MADE</div>
               </div>
@@ -88,7 +88,7 @@
             <img class="pic" src="../../assets/newImg/sy3.png" alt />
             <div class="box">
               <div class="items">
-                <img class="pic2" src="../../assets/newImg/hezi.png" alt />
+                <!-- <img class="pic2" src="../../assets/newImg/hezi.png" alt /> -->
                 <div class="txt1">推广返佣</div>
                 <div class="txt2">REBATE</div>
               </div>
@@ -227,6 +227,7 @@ export default {
   // height: calc(100vh - );
   position: relative;
   .top {
+    background: #bbbbbb;
     position: relative;
     margin-top: 4px;
     height: 74px;
@@ -337,6 +338,7 @@ export default {
           .txt1 {
             width: 100%;
             position: absolute;
+            text-shadow: 2px 2px 2px #aaaaaa;
             top: 22px;
             left: -2px;
             opacity: 1;
@@ -349,6 +351,7 @@ export default {
           .txt2 {
             width: 100%;
             position: absolute;
+            text-shadow: 2px 2px 2px #aaaaaa;
             top: 42px;
             left: -2px;
             opacity: 1;
@@ -382,6 +385,7 @@ export default {
           .txt1 {
             width: 100%;
             position: absolute;
+            text-shadow: 2px 2px 2px #aaaaaa;
             top: 22px;
             left: -2px;
             opacity: 1;
@@ -392,6 +396,7 @@ export default {
             color: #5c5c5c;
           }
           .txt2 {
+            text-shadow: 2px 2px 2px #aaaaaa;
             width: 100%;
             position: absolute;
             top: 42px;
